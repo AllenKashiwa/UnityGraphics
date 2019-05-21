@@ -15,6 +15,6 @@ ReflectionProbeBaked演示了烘焙反射探针的用法：
 ReflectionProbeRealtime演示了实时反射探针的用法：
 
 1. 复制ReflectionProbeBaked场景，重命名为ReflectionProbeRealtime。
-2. 将反射探针设置为realtime，RefreshMode设置为Everyframe模式：![ReflectionProbeBaked](/Users/baizihan/WorkSpace/github/UnityGraphics/Images/Lighting/ReflectionProbeRealtime.png)
+2. 将反射探针设置为realtime，RefreshMode设置为Everyframe模式：![ReflectionProbeRealtime](../../../../Images/Lighting/ReflectionProbeRealtime.png)
 3. 将Ground，Wall，RedCube和BlueCube的ReflectionProbeStatic去掉。 
 4. 运行场景，按左右键移动小球。
