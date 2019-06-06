@@ -36,3 +36,8 @@ sysinfo.txt
 *.unitypackage
 
 *.DS_Store
+.idea/
+
+# Rider
+*.Repacked.dll
+*.Repacked.dll.meta
