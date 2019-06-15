@@ -1,7 +1,8 @@
-Shader "Custom/UseStruct"
+Shader "Custom/TilingAndOffset"
 {
     Properties{
         _Tint("色调", Color) = (1, 1, 1, 1)
+        _MainTex("主纹理", 2D) = "white" {}
     }
     SubShader{
         Pass{
@@ -11,22 +12,30 @@ Shader "Custom/UseStruct"
 
                 #include "UnityCG.cginc"
                 float4 _Tint;
-                struct Interpolators{
-                    float4 position : SV_POSITION;
-                    float3 localPosition : TEXCOORD0;
+                sampler2D _MainTex;
+                float4 _MainTex_ST;
+
+                struct VertexData{
+                    float4 position : POSITION;
+                    float2 uv : TEXCOORD0;
                 };
 
-                Interpolators vert(float4 position : POSITION)
+                struct Interpolators{
+                    float4 position : SV_POSITION;
+                    float2 uv : TEXCOORD0;
+                };
+
+                Interpolators vert(VertexData v)
                 {
                     Interpolators i;
-                    i.localPosition = position.xyz;
-                    i.position = UnityObjectToClipPos(position);
+                    i.uv = TRANSFORM_TEX(v.uv, _MainTex);
+                    i.position = UnityObjectToClipPos(v.position);
                     return i;
                 }
 
                 float4 frag(Interpolators i) : SV_TARGET
                 {
-                    return float4(i.localPosition + 0.5, 1) * _Tint;
+                    return tex2D(_MainTex, i.uv) * _Tint;
                 }
             ENDCG
         }
