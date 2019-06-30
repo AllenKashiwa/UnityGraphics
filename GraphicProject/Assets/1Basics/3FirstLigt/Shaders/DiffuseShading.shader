@@ -1,4 +1,4 @@
-Shader "Custom/FirstLight/NormalInWorldSpace"
+Shader "Custom/FirstLight/DiffuseShading"
 {
     Properties{
         _MainTex("主纹理", 2D) = "white" {}
@@ -9,7 +9,7 @@ Shader "Custom/FirstLight/NormalInWorldSpace"
             #pragma vertex vert
             #pragma fragment frag
 
-            #include "UnityCG.cginc"
+            #include "UnityStandardBRDF.cginc"
 
             sampler2D _MainTex;
             float4 _MainTex_ST;
@@ -39,7 +39,8 @@ Shader "Custom/FirstLight/NormalInWorldSpace"
             float4 frag(Interpolators i) : SV_TARGET
             {
                 i.normal = normalize(i.normal);
-                return float4(i.normal * 0.5 + 0.5, 1);
+                float3 lightDir = _WorldSpaceLightPos0.xyz;
+                return DotClamped(lightDir, i.normal);
             }
             ENDCG
         }
